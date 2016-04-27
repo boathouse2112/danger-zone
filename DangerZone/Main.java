@@ -1,4 +1,4 @@
-/*Name:	
+/*Name:
  *Date:
  *Period:
  *Teacher:
@@ -7,5 +7,5 @@
 
 public class Main
 {
-
+    i hate you all.
 }
