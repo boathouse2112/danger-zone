@@ -7,5 +7,5 @@
 
 public class Main
 {
-    i hate you all.
+    
 }
