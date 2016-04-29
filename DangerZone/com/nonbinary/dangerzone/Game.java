@@ -4,6 +4,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -16,6 +18,9 @@ public class Game
     public static Canvas canvas;
     public static BufferStrategy buffer;
     public static Graphics graphics;
+    
+    //render() iterates through this in order and renders all objects inside
+    public static List<GameObject> gameObjects = new ArrayList<GameObject>();
     
     public static void init()
     {
@@ -39,6 +44,9 @@ public class Game
     	//Makes a buffer.
     	canvas.createBufferStrategy(2);
     	buffer = canvas.getBufferStrategy();
+    	
+    	//Adds objects to renderedObjects
+    	gameObjects.add(new Spaceship());
     }
 	
 	public static void render()
@@ -47,14 +55,15 @@ public class Game
 		graphics = buffer.getDrawGraphics();
 		
 		//DRAWING SECTION
-		//Makes black background
-		graphics.setColor(Color.BLACK);
-		graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		for(GameObject renderedObject : gameObjects)
+		{
+			renderedObject.render(graphics);
+		}
 		//END DRAWING SECTION
 		
 		//Displays the drawn buffer. 
 		if(!buffer.contentsLost()) buffer.show();
-		//Idunno. Looks important.
+		//Manual memory management, if we waited for garbage collect, we'd be sad.
 		if(graphics != null) graphics.dispose();
 	}
 }
